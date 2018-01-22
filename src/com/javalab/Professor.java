@@ -23,6 +23,14 @@ public class Professor
 	{}
 
 	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+
+		return prime* this.link.hashCode();
+	}
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		return obj instanceof Professor && this.name.equals(((Professor) obj).name);

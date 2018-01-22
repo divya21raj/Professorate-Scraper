@@ -6,6 +6,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 //The natural science people get counted again after the Communication lot, they are to be eliminated while making objects
 
@@ -19,6 +21,13 @@ public class Main
 
         String dept = "";
 
+        Course dummyCourse = new Course("LOL", "LOLTitle");
+        Rating dummyRating = new Rating(0f, "", dummyCourse);
+		ArrayList<Rating> dummyRatingList = new ArrayList<>();
+		dummyRatingList.add(dummyRating);
+
+		ArrayList<Professor> professorList= new ArrayList<>();
+
         for (Element link : links)
         {
             String address = link.attr("href");
@@ -28,20 +37,49 @@ public class Main
 
             else if(!link.text().isEmpty())
             {
-				if(link.text().contains("Arindam"))
-					dept = "School of Management and Entrepreneurship";
+				String exception = changedDeptAccordingToExceptions(link);
+				if(exception != null)
+					dept = exception;
 
 				if(!address.startsWith("http:"))
                     address = "http://snu.edu.in" + address;
 
                 if(address.endsWith("profile.aspx") && !(link.text().contains("Director")||link.text().contains("Professor")||link.text().contains("Faculty")||link.text().contains("Fellow")||link.text().contains("Head")))
                 {
-                    System.out.print("Name: " + link.text());
-                    System.out.print("\nLink: " + address);
-                    System.out.print("\nDept: " + dept + "\n\n");
+                    Professor professor = new Professor(link.text(), dept, address, dummyRatingList);
+
+                    professorList.add(professor);
                 }
             }
         }
 
+		LinkedHashSet<Professor> linkedHashSet = new LinkedHashSet<>(professorList);
+        professorList = new ArrayList<>(linkedHashSet);
+
+        int i = 0;
+
+        for(Professor professor: professorList)
+		{
+			System.out.printf("\n%d\n", i++);
+			System.out.print("Name: " + professor.getName());
+			System.out.print("\nDept: " + professor.getDept());
+			System.out.print("\nLink: " + professor.getLink() + "\n");
+		}
     }
+
+	private static String changedDeptAccordingToExceptions(Element link)
+	{
+		String dept = null;
+
+		if(link.text().equals("Sonali Bhandari"))
+			dept = "Department of Natural Sciences";
+
+		if(link.text().equals("Shubhro Sen"))
+			dept = "School of Extended Education and Professional Development";
+
+		if(link.text().contains("Arindam"))
+			dept = "School of Management and Entrepreneurship";
+
+		return dept;
+	}
 }
