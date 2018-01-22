@@ -7,6 +7,8 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
+//The natural science people get counted again after the Communication lot, they are to be eliminated while making objects
+
 public class Main
 {
     public static void main(String[] args) throws IOException
