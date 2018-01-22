@@ -26,10 +26,8 @@ public class Main
 
         String dept = "";
 
-        Course dummyCourse = new Course("LOL", "LOLTitle");
-        Rating dummyRating = new Rating(0f, "", dummyCourse);
-		ArrayList<Rating> dummyRatingList = new ArrayList<>();
-		dummyRatingList.add(dummyRating);
+        ArrayList<String> dummyRatingList = new ArrayList<>();
+        dummyRatingList.add("dummyRating");
 
 		ArrayList<Professor> professorList= new ArrayList<>();
 

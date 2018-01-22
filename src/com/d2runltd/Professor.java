@@ -11,15 +11,15 @@ public class Professor
 
 	private String link;
 
-	private ArrayList<Rating> ratings;
+	private ArrayList<String> ratingIDs;
 
-	public Professor(String id, String name, String dept, String link, ArrayList<Rating> ratings)
+	Professor(String id, String name, String dept, String link, ArrayList<String> ratingIDs)
 	{
 		this.id = id;
 		this.name = name;
 		this.dept = dept;
 		this.link = link;
-		this.ratings = ratings;
+		this.ratingIDs = ratingIDs;
 	}
 
 	public Professor()
@@ -64,13 +64,8 @@ public class Professor
 		return link;
 	}
 
-	public ArrayList<Rating> getRatings()
+	public ArrayList<String> getRatingIDs()
 	{
-		return ratings;
-	}
-
-	public void setRatings(ArrayList<Rating> ratings)
-	{
-		this.ratings = ratings;
+		return ratingIDs;
 	}
 }
