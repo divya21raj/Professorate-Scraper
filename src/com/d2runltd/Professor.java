@@ -1,9 +1,11 @@
-package com.javalab;
+package com.d2runltd;
 
 import java.util.ArrayList;
 
 public class Professor
 {
+	private String id;
+
 	private String name;
 	private String dept;
 
@@ -11,8 +13,9 @@ public class Professor
 
 	private ArrayList<Rating> ratings;
 
-	public Professor(String name, String dept, String link, ArrayList<Rating> ratings)
+	public Professor(String id, String name, String dept, String link, ArrayList<Rating> ratings)
 	{
+		this.id = id;
 		this.name = name;
 		this.dept = dept;
 		this.link = link;
@@ -34,6 +37,16 @@ public class Professor
 	public boolean equals(Object obj)
 	{
 		return obj instanceof Professor && this.name.equals(((Professor) obj).name);
+	}
+
+	public String getId()
+	{
+		return id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
 	}
 
 	public String getName()

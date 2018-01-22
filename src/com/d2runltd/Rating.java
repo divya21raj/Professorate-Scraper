@@ -1,4 +1,4 @@
-package com.javalab;
+package com.d2runltd;
 
 public class Rating
 {

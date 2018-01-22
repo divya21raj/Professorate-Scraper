@@ -1,11 +1,11 @@
-package com.javalab;
+package com.d2runltd;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
@@ -47,7 +47,7 @@ public class Main
 
                 if(address.endsWith("profile.aspx") && !(link.text().contains("Director")||link.text().contains("Professor")||link.text().contains("Faculty")||link.text().contains("Fellow")||link.text().contains("Head")))
                 {
-                    Professor professor = new Professor(link.text(), dept, address, dummyRatingList);
+                    Professor professor = new Professor("", link.text(), dept, address, dummyRatingList);
 
                     professorList.add(professor);
                 }
@@ -57,18 +57,7 @@ public class Main
 		LinkedHashSet<Professor> linkedHashSet = new LinkedHashSet<>(professorList);
         professorList = new ArrayList<>(linkedHashSet);
 
-        int i = 0;
 
-		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream("professors.txt"), "utf-8")))
-		{
-			for(Professor professor: professorList)
-			{
-				writer.write(professor.getName() + "\n");
-				writer.write(professor.getDept() + "\n");
-				writer.write(professor.getLink() + "\n");
-			}
-		}
     }
 
 	private static String changedDeptAccordingToExceptions(Element link)
@@ -87,8 +76,5 @@ public class Main
 		return dept;
 	}
 
-	void putOnFirebaseDatabase()
-	{
 
-	}
 }
