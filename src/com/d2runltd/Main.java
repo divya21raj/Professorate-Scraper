@@ -1,5 +1,6 @@
 package com.d2runltd;
 
+import com.firebase.client.Firebase;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,6 +12,9 @@ import java.util.LinkedHashSet;
 
 /*The natural science people get counted again after the Communication lot, they are to be eliminated
 	while making objects, part of it handled in changedDeptAccordingToExceptions() method*/
+
+/*To put stuff on the Firebase DB, its rules were changed so that anyone can r/w on it.
+	change that later when using the DB on the Android app*/
 
 public class Main
 {
@@ -57,6 +61,7 @@ public class Main
 		LinkedHashSet<Professor> linkedHashSet = new LinkedHashSet<>(professorList);
         professorList = new ArrayList<>(linkedHashSet);
 
+        putOnFirebaseDatabase(professorList);
 
     }
 
@@ -76,5 +81,17 @@ public class Main
 		return dept;
 	}
 
+	private static void putOnFirebaseDatabase(ArrayList<Professor> professors)
+	{
+		Firebase profDBRef = new Firebase("https://professorate-dc952.firebaseio.com/profs");
+
+		for(Professor professor: professors)
+		{
+			String id = profDBRef.push().getKey();
+			professor.setId(id);
+
+			profDBRef.child(id).setValue(professor);
+		}
+	}
 
 }
