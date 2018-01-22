@@ -5,11 +5,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-//The natural science people get counted again after the Communication lot, they are to be eliminated while making objects
+/*The natural science people get counted again after the Communication lot, they are to be eliminated
+	while making objects, part of it handled in changedDeptAccordingToExceptions() method*/
 
 public class Main
 {
@@ -58,12 +59,15 @@ public class Main
 
         int i = 0;
 
-        for(Professor professor: professorList)
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("professors.txt"), "utf-8")))
 		{
-			System.out.printf("\n%d\n", i++);
-			System.out.print("Name: " + professor.getName());
-			System.out.print("\nDept: " + professor.getDept());
-			System.out.print("\nLink: " + professor.getLink() + "\n");
+			for(Professor professor: professorList)
+			{
+				writer.write(professor.getName() + "\n");
+				writer.write(professor.getDept() + "\n");
+				writer.write(professor.getLink() + "\n");
+			}
 		}
     }
 
@@ -81,5 +85,10 @@ public class Main
 			dept = "School of Management and Entrepreneurship";
 
 		return dept;
+	}
+
+	void putOnFirebaseDatabase()
+	{
+
 	}
 }
