@@ -9,12 +9,15 @@ public class Professor
 
 	private String link;
 
-	Professor(String id, String name, String dept, String link)
+	private String imageLink;
+
+	Professor(String id, String name, String dept, String link, String imageLink)
 	{
 		this.id = id;
 		this.name = name;
 		this.dept = dept;
 		this.link = link;
+		this.imageLink = imageLink;
 	}
 
 	public Professor()
@@ -59,4 +62,8 @@ public class Professor
 		return link;
 	}
 
+	public String getImageLink()
+	{
+		return imageLink;
+	}
 }

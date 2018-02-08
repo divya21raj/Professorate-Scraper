@@ -4,15 +4,18 @@ public class Rating
 {
 	private String id;
 
+	private String profId;
+
 	private Float stars;
 
 	private String review;
 
 	private Course course;
 
-	public Rating(String id, Float stars, String review, Course course)
+	public Rating(String id, String profId, Float stars, String review, Course course)
 	{
 		this.id = id;
+		this.profId = profId;
 		this.stars = stars;
 		this.review = review;
 		this.course = course;
@@ -59,5 +62,15 @@ public class Rating
 	public void setId(String id)
 	{
 		this.id = id;
+	}
+
+	public String getProfId()
+	{
+		return profId;
+	}
+
+	public void setProfId(String profId)
+	{
+		this.profId = profId;
 	}
 }

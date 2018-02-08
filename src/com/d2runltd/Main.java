@@ -18,6 +18,8 @@ import java.util.LinkedHashSet;
 
 public class Main
 {
+	private static int i =1;
+
     public static void main(String[] args) throws IOException
     {
         Document doc = Jsoup.connect("http://snu.edu.in/theuniversity/faculties_school.aspx").get();
@@ -25,6 +27,7 @@ public class Main
         Elements links = doc.select("a[href]");
 
         String dept = "";
+        String imageLink;
 
 		ArrayList<Professor> professorList= new ArrayList<>();
 
@@ -41,12 +44,18 @@ public class Main
 				if(exception != null)
 					dept = exception;
 
-				if(!address.startsWith("http:"))
-                    address = "http://snu.edu.in" + address;
+				if(!address.startsWith("http:") && address.endsWith("aspx"))
+				{
+					address = "http://snu.edu.in" + address;
+				}
 
                 if(address.endsWith("profile.aspx") && !(link.text().contains("Director")||link.text().contains("Professor")||link.text().contains("Faculty")||link.text().contains("Fellow")||link.text().contains("Head")))
                 {
-                    Professor professor = new Professor("", link.text(), dept, address);
+					String name = link.text();
+
+                	imageLink = getImageLink(address, name);
+
+                    Professor professor = new Professor("", name, dept, address, imageLink);
 
                     professorList.add(professor);
                 }
@@ -59,6 +68,49 @@ public class Main
         putOnFirebaseDatabase(professorList);
 
     }
+
+	private static String getImageLink(String address, String profName)
+	{
+		String imageLink = "";
+		String firstName = getFirstName(profName);
+
+		try
+		{
+			Document doc = Jsoup.connect(address).get();
+
+			Elements img = doc.getElementsByTag("img");
+			for (Element el : img)
+			{
+				String link = el.absUrl("src");
+
+				if(link.startsWith("http://snu.edu.in/images/" + firstName))
+				{
+					imageLink = link;
+					System.out.printf("\n%d.%s", i++, imageLink);
+				}
+			}
+		} catch (Exception e)
+		{
+			System.out.println("Exception!");
+			//e.printStackTrace();
+		}
+
+		return imageLink;
+	}
+
+	private static String getFirstName(String profName)
+	{
+		String firstName;
+
+		int spacePos = profName.indexOf(" ");
+
+		if(spacePos == -1)
+			spacePos = profName.length();
+
+		firstName = profName.substring(0, spacePos);
+
+		return firstName;
+	}
 
 	private static String changedDeptAccordingToExceptions(Element link)
 	{
