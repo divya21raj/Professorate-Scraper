@@ -26,9 +26,6 @@ public class Main
 
         String dept = "";
 
-        ArrayList<String> dummyRatingList = new ArrayList<>();
-        dummyRatingList.add("dummyRating");
-
 		ArrayList<Professor> professorList= new ArrayList<>();
 
         for (Element link : links)
@@ -49,7 +46,7 @@ public class Main
 
                 if(address.endsWith("profile.aspx") && !(link.text().contains("Director")||link.text().contains("Professor")||link.text().contains("Faculty")||link.text().contains("Fellow")||link.text().contains("Head")))
                 {
-                    Professor professor = new Professor("", link.text(), dept, address, dummyRatingList);
+                    Professor professor = new Professor("", link.text(), dept, address);
 
                     professorList.add(professor);
                 }

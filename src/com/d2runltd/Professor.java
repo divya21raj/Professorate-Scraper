@@ -1,7 +1,5 @@
 package com.d2runltd;
 
-import java.util.ArrayList;
-
 public class Professor
 {
 	private String id;
@@ -11,15 +9,12 @@ public class Professor
 
 	private String link;
 
-	private ArrayList<String> ratingIDs;
-
-	Professor(String id, String name, String dept, String link, ArrayList<String> ratingIDs)
+	Professor(String id, String name, String dept, String link)
 	{
 		this.id = id;
 		this.name = name;
 		this.dept = dept;
 		this.link = link;
-		this.ratingIDs = ratingIDs;
 	}
 
 	public Professor()
@@ -64,8 +59,4 @@ public class Professor
 		return link;
 	}
 
-	public ArrayList<String> getRatingIDs()
-	{
-		return ratingIDs;
-	}
 }
