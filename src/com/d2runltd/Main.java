@@ -83,7 +83,7 @@ public class Main
 			{
 				String link = el.absUrl("src");
 
-				if(link.startsWith("http://snu.edu.in/images/" + firstName))
+				if(link.startsWith("http://snu.edu.in/images/" + firstName)||link.startsWith("http://snu.edu.in/images/" + firstName.toLowerCase()))
 				{
 					imageLink = link;
 					System.out.printf("\n%d.%s", i++, imageLink);
